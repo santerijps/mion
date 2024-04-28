@@ -1,0 +1,24 @@
+{
+  "name": "@santerijps/mion",
+  "version": "0.1.0",
+  "description": "Minimal Object Notation",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": "dist/bin.js",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup",
+    "test": "exit 0"
+  },
+  "keywords": ["data", "format", "parser", "converter"],
+  "author": "Santeri Sydänmetsä",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@santerijps/tokenizer": "^1.0.3"
+  }
+}
