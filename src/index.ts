@@ -41,7 +41,7 @@ function read_record(stream: TokenStream<Spec>) {
 
   while (true) {
     const token = stream.next("comment");
-    if (token === null || token.type === "rbrace") {
+    if (token === null || (expect_key && token.type === "rbrace")) {
       break;
     }
 
@@ -75,8 +75,9 @@ function read_record(stream: TokenStream<Spec>) {
 function read_list(stream: TokenStream<Spec>) {
   const result = new Array();
 
-  for (const token of stream) {
-    if (token.type === "rbrack") {
+  while (true) {
+    const token = stream.next("comment");
+    if (token === null || token.type === "rbrack") {
       break;
     }
 
@@ -92,8 +93,9 @@ function read_list_with_schema(stream: TokenStream<Spec>, schema: Carousel<strin
   const result = new Array();
   let list_item: any = {};
 
-  for (const token of stream) {
-    if (token.type === "rbrack") {
+  while (true) {
+    const token = stream.next("comment");
+    if (token === null || token.type === "rbrack") {
       break;
     }
 
@@ -118,8 +120,9 @@ function read_list_with_schema(stream: TokenStream<Spec>, schema: Carousel<strin
 function read_schema(stream: TokenStream<Spec>) {
   const keys = new Array<string>();
 
-  for (const token of stream) {
-    if (token.type === "rparen") {
+  while (true) {
+    const token = stream.next("comment");
+    if (token === null || token.type === "rparen") {
       break;
     }
     if (token.type !== "identifier") {

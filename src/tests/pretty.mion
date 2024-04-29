@@ -1,0 +1,23 @@
+name          "Alice"
+age           50
+auth          false
+cookie        null
+
+address {
+  country     "UK"
+  city        "London"
+  street      "123 Baker Street"
+}
+
+hobbies [
+  "baking"
+  "yoga"
+  {
+    hobby "reading books"
+  }
+]
+
+friends (name age) [
+  "Janice" 49
+  "Cyntha" 54
+]
