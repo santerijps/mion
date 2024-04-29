@@ -2,6 +2,10 @@
   "name": "@santerijps/mion",
   "version": "0.1.0",
   "description": "Minimal Object Notation",
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/santerijps/mion"
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": "dist/bin.js",
