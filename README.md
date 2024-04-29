@@ -24,9 +24,15 @@ fruits [
   "orange"
 ]
 
-people (id name age) [
+people (id name age) [ # Schemas!
   1 "Alice" 50
   2 "Bob" 60
   3 "Charlie" 45
 ]
+```
+
+## Usage
+
+```bash
+npm i @santerijps/mion
 ```
