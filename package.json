@@ -1,6 +1,6 @@
 {
   "name": "@santerijps/mion",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Minimal Object Notation",
   "repository": {
     "type": "github",
@@ -9,7 +9,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": "dist/bin.js",
-  "files": ["dist"],
+  "files": ["dist/**"],
   "scripts": {
     "build": "tsup",
     "test": "jest"
