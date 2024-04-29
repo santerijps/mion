@@ -20,16 +20,50 @@ const TokenSpecification = {
 };
 
 
-export function parse_text(text: string) {
+export function mion_to_json(text: string) {
   const stream = new TokenStream(text, TokenSpecification);
   return read_record(stream);
 }
 
 
-export async function parse_file(file_path: string) {
+export async function mion_file_to_json(file_path: string) {
   const fs = await import("node:fs/promises");
   const text = await fs.readFile(file_path, {encoding: "utf-8"});
-  return parse_text(text);
+  return mion_to_json(text);
+}
+
+
+export function json_to_mion(json: any) {
+  if (typeof json === "string") {
+    return `"${json}"`;
+  }
+
+  if (typeof json === "number" || typeof json === "boolean" || json == null) {
+    return `${json}`;
+  }
+
+  if (Array.isArray(json)) {
+    let result = "[\n";
+    for (const value of json) {
+      if (value instanceof Object && !Array.isArray(value)) {
+        result += `{\n${json_to_mion(value)}}\n`;
+      } else {
+        result += `${json_to_mion(value)}\n`;
+      }
+    }
+    result += "]";
+    return result;
+  }
+
+  let result = "";
+  for (const [key, value] of Object.entries(json)) {
+    if (value instanceof Object && !Array.isArray(value)) {
+      result += `${key} {\n${json_to_mion(value)}}\n`;
+    } else {
+      result += `${key} ${json_to_mion(value)}\n`;
+    }
+  }
+  return result;
 }
 
 
@@ -197,4 +231,4 @@ function unexpected_token(token: Token<Spec>) {
 }
 
 
-export default {parse_file, parse_text};
+export default {json_to_mion, mion_file_to_json, mion_to_json};
