@@ -21,3 +21,6 @@ friends (name age) [
   "Janice" 49
   "Cyntha" 54
 ]
+
+multiline "hello
+world"

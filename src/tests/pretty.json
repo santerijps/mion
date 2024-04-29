@@ -20,5 +20,6 @@
       "name": "Cyntha",
       "age": 54
     }
-  ]
+  ],
+  "multiline": "hello\r\nworld"
 }

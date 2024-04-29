@@ -17,6 +17,8 @@ const TokenSpecification = {
   string: Matchers.DoubleQuotedMultilineString,
   comment: /#.*$/m,
   identifier: Matchers.AlphabeticUnicodeIdentifier,
+  whitespace: Matchers.AnyWhitespace,
+  undefined: Matchers.AnyCharacter,
 };
 
 
@@ -74,9 +76,12 @@ function read_record(stream: TokenStream<Spec>) {
   let schema: undefined | Carousel<string>;
 
   while (true) {
-    const token = stream.next("comment");
+    const token = stream.next("comment", "whitespace");
     if (token === null || (expect_key && token.type === "rbrace")) {
       break;
+    }
+    if (token.type === "undefined") {
+      unexpected_token(token);
     }
 
     if (expect_key && token.type === "identifier") {
@@ -110,9 +115,12 @@ function read_list(stream: TokenStream<Spec>) {
   const result = new Array();
 
   while (true) {
-    const token = stream.next("comment");
+    const token = stream.next("comment", "whitespace");
     if (token === null || token.type === "rbrack") {
       break;
+    }
+    if (token.type === "undefined") {
+      unexpected_token(token);
     }
 
     const list_item = read_value(token, stream);
@@ -128,9 +136,12 @@ function read_list_with_schema(stream: TokenStream<Spec>, schema: Carousel<strin
   let list_item: any = {};
 
   while (true) {
-    const token = stream.next("comment");
+    const token = stream.next("comment", "whitespace");
     if (token === null || token.type === "rbrack") {
       break;
+    }
+    if (token.type === "undefined") {
+      unexpected_token(token);
     }
 
     const [key, is_last] = schema.next();
@@ -155,7 +166,7 @@ function read_schema(stream: TokenStream<Spec>) {
   const keys = new Array<string>();
 
   while (true) {
-    const token = stream.next("comment");
+    const token = stream.next("comment", "whitespace");
     if (token === null || token.type === "rparen") {
       break;
     }
