@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 
-import { parse_file } from ".";
+import mion from ".";
 import fs from "node:fs";
 
 
@@ -23,7 +23,7 @@ async function main() {
   }
 
   try {
-    const json = await parse_file(argv[0]);
+    const json = await mion.mion_file_to_json(argv[0]);
     console.log(JSON.stringify(json, null, 2));
     process.exit(0);
   }
